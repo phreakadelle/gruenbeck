@@ -13,7 +13,7 @@ $retVal['debug'] = array();
 //$command = GRUENBECK_API_COMMAND;
 $command = "";
 $command .= GruenbeckParameter::getA1AktuellerDurchfluss() . GruenbeckParameter::$FIELD_SEPARATOR;
-//$command .= GruenbeckParameter::getA1Restzeit() . GruenbeckParameter::$FIELD_SEPARATOR;
+$command .= GruenbeckParameter::getA1Restkapazitaet() . GruenbeckParameter::$FIELD_SEPARATOR;
 $command .= GruenbeckParameter::getA1Ueber() . GruenbeckParameter::$FIELD_SEPARATOR;
 $command .= GruenbeckParameter::getWasserverbrauchGestern() . GruenbeckParameter::$FIELD_SEPARATOR;
 $command .= GruenbeckParameter::getA1Kapazitaetszahl() . GruenbeckParameter::$FIELD_SEPARATOR;
@@ -91,11 +91,12 @@ if($link) {
             $insert = "insert into gruenbeck (".$databaseFields.") values (".$databaseValues.");";
             $retVal['sql'] = $insert;
             
-            //if(mysqli_query($link, $insert)) {
-            //    $retVal['message'] = "Done";
-            //} else {
-            //    $retVal['sql'] = $insert;
-            //}
+            if(mysqli_query($link, $insert)) {
+                $retVal['message'] = "Done";
+            } else {
+                $retVal['sql'] = $insert;
+                $httpCode = 500;
+            }
             
             mysqli_close($link); 
         } else {
@@ -113,5 +114,6 @@ if($link) {
 }
 
 header("application/json");
+http_response_code($httpCode);
 echo json_encode($retVal);
 ?>
