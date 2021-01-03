@@ -119,7 +119,7 @@ if(!isset($_GET['action']) || $_GET['action'] == "list") {
     $retVal['message'] = "Unsupported Operation: ".$_GET['action'];
     $httpCode = 501;
 }
-$httpCode = 200;
+
 header("application/json");
 http_response_code($httpCode);
 
