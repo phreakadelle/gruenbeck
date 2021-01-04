@@ -93,9 +93,9 @@ if(!isset($_GET['action']) || $_GET['action'] == "list") {
             foreach($allParameters as $currentParam) {
                 if($currentParam->getKey() == $key) {
                     if(strpos($key, "D_Y_2_")) {
-                        $retVal['results'][$key] = array("key" => $key, "displayName" => $currentParam->getDisplayName(), "value" => $val."");
-                    } else {
                         $retVal['results'][$key] = array("key" => $key, "displayName" => $currentParam->getDisplayName(), "value" => $val."", "date" => date("Y-m-d", strtotime("- ".substr($key, -1)."day")));
+                    } else {
+                        $retVal['results'][$key] = array("key" => $key, "displayName" => $currentParam->getDisplayName(), "value" => $val."");    
                     }
                     $handled = true;
                 } 
