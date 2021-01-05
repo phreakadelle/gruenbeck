@@ -92,10 +92,11 @@ if(!isset($_GET['action']) || $_GET['action'] == "list") {
             
             foreach($allParameters as $currentParam) {
                 if($currentParam->getKey() == $key) {
-                    if(strpos($key, "D_Y_2_")) {
-                        $retVal['results'][$key] = array("key" => $key, "displayName" => $currentParam->getDisplayName(), "value" => $val."", "date" => date("Y-m-d", strtotime("- ".substr($key, -1)."day")));
+                    if(strpos($key, "D_Y_2_") == 0) {
+                        $minusDays = substr($key, strrpos($key, "_") + 1);
+                        $retVal['results'][$key] = array("key" => $key, "displayName" => $currentParam->getDisplayName(), "value" => $val."", "date " => date("Y-m-d", strtotime("- ".$minusDays."day")));
                     } else {
-                        $retVal['results'][$key] = array("key" => $key, "displayName" => $currentParam->getDisplayName(), "value" => $val."");    
+                        $retVal['results'][$key] = array("key" => $key, "displayName" => $currentParam->getDisplayName(), "value" => $val."");
                     }
                     $handled = true;
                 } 
